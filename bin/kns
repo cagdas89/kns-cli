@@ -89,6 +89,10 @@ program
             else {
                 return plugin(path.join(pkgPath, "plugins"), pluginName, options.dependent);
             }
+        }).then(function () {
+            console.log("--------------------------------------------");
+            console.log("New plugin " + clc.red.bold(pluginName) + " was added to " + clc.blue.bold(appName) + "\'s plugin folder.");
+            console.log("--------------------------------------------");
         }).catch(function (e) {
             printError(e.message);
         });
