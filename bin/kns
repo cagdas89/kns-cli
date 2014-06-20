@@ -9,6 +9,7 @@
  */
 
 var program = require("commander");
+var path = require("path");
 var pkg = require("../package.json");
 var Promise = require("bluebird");
 var clc = require("cli-color");
@@ -42,6 +43,9 @@ program
     .description("Creates plugin directory and file")
     .option("-d, --dependent [dependentPluginName]", "Dependent plugin name")
     .action(function (pluginName, options) {
+
+        //require("../lib/appfinder")(path.resolve(process.cwd()));
+
         Promise.resolve(require("../lib/plugin")(pluginName, options.dependent)).then(function() {
             console.log("--------------------------------------------");
             console.log("New plugin folder " + clc.red.bold(pluginName) + " was added to " + clc.blue(process.cwd()));
