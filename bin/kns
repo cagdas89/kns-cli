@@ -19,6 +19,9 @@ var foldercheck = require("../lib/foldercheck");
 var migration = require("../lib/migration");
 var plugin = require("../lib/plugin");
 
+var appName;
+var pkgPath;
+
 program.version(pkg.version);
 
 
@@ -41,9 +44,6 @@ program
             // TODO: Run migrations
             return;
         }
-
-        var appName;
-        var pkgPath;
         appfinder(path.resolve(process.cwd())).then(function (packagePath) {
             pkgPath = packagePath;
             appName = require(path.join(pkgPath, "package.json")).name;
@@ -78,9 +78,6 @@ program
             printError("pluginName must be specified");
             return;
         }
-
-        var appName;
-        var pkgPath;
         appfinder(path.resolve(process.cwd())).then(function (packagePath) {
             pkgPath = packagePath;
             appName = require(path.join(pkgPath, "package.json")).name;
