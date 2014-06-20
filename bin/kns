@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+/**
+ *
+ * API: http://visionmedia.github.io/commander.js/
+ * <requiredCommandOrOption>
+ * [optionalCommandOrOption]
+ *
+ */
+
+var program = require("commander");
+var pkg = require("../package.json");
+var Promise = require("bluebird");
+var clc = require("cli-color");
+
+
+program.version(pkg.version);
+
+/**
+ * Creates migration file with given name from
+ * migration template.
+ */
+program
+    .command("migration <migrationName>")
+    .description("Creates migration file.")
+    .action(function (migrationName) {
+        Promise.resolve(require("../lib/migration")(migrationName)).then(function() {
+            console.log("--------------------------------------------");
+            console.log("New migration file " + clc.red.bold(migrationName) + " was added to " + clc.blue(process.cwd()));
+            console.log("--------------------------------------------");
+        });
+
+    });
+
+/**
+ * Creates plugin directory and file with given name from
+ * migration template.
+ */
+
+program
+    .command("plugin <pluginName>")
+    .description("Creates plugin directory and file")
+    .option("-d, --dependent [dependentPluginName]", "Dependent plugin name")
+    .action(function (pluginName, options) {
+        Promise.resolve(require("../lib/plugin")(pluginName, options.dependent)).then(function() {
+            console.log("--------------------------------------------");
+            console.log("New plugin folder " + clc.red.bold(pluginName) + " was added to " + clc.blue(process.cwd()));
+            console.log("--------------------------------------------");
+        });
+    });
+
+program
+    .command("help")
+    .action(function () {
+        console.log("--------------------------------------------");
+        console.log("Unknown command pls type " + clc.red.bold("kns --help") + " for available commands.");
+        console.log("--------------------------------------------");
+    });
+
+program.parse(process.argv);
