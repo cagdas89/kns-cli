@@ -18,12 +18,12 @@ var appfinder = require("../lib/appfinder");
 var foldercheck = require("../lib/foldercheck");
 var migration = require("../lib/migration");
 var plugin = require("../lib/plugin");
+var model = require("../lib/model");
 
 var appName;
 var pkgPath;
 
 program.version(pkg.version);
-
 
 /**
  * Creates test directory in app root if not exist and file with given name from
@@ -31,6 +31,31 @@ program.version(pkg.version);
  */
 
 // TODO: cado
+
+/**
+ * Creates model file with given name from
+ * model template.
+ */
+
+program
+    .command("model [modelName]")
+    .description("Creates model file")
+    .action(function (modelName) {
+        if ( !modelName ) {
+            printError("modelName must be specified");
+            return;
+        }
+
+        console.log(path.normalize(process.cwd()));
+
+        model(path.normalize(process.cwd()), modelName).then(function () {
+            console.log("--------------------------------------------");
+            console.log("New model " + clc.red.bold(modelName) + " was added to " + clc.blue.bold(process.cwd()));
+            console.log("--------------------------------------------");
+        }).catch(function (e) {
+            printError(e.message);
+        });
+    });
 
 /**
  * Creates migration file with given name from
@@ -97,7 +122,6 @@ program
             printError(e.message);
         });
     });
-
 
 program
     .command("help")

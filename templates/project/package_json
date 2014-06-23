@@ -1,0 +1,31 @@
+{
+  "name": <%=projectName>,
+  "version": "0.0.1",
+  "description": <%=projectName>,
+  "main": "app.js",
+  "engines": {
+    "node": "^0.11.12"
+  },
+  "dependencies": {
+    "hapi": "^6.0.1",
+    "hoek": "^2.3.0",
+    "sequelize": "^2.0.0-dev11",
+    "boom": "^2.4.2",
+    "joi": "^4.6.0",
+    "catbox": "^3.0.0",
+    "catbox-memory": "^1.0.3",
+    "bluebird": "^2.1.1",
+    "ejs": "^1.0.0",
+    "mysql": "^2.3.2",
+    "moment": "^2.7.0",
+    "gulp": "^3.8.0",
+    "hapi-auth-cookie": "^1.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+  }
+}
