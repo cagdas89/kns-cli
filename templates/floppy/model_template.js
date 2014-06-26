@@ -15,8 +15,8 @@ module.exports = function (sequelize, DataTypes) {
              *
              * Ex;
              *
-             * <%=model%>_title
-             * <%=model%>_exp
+             * <%=model%>_title: DataTypes.STRING,
+             * <%=model%>_exp: DataTypes.STRING,
              * ...
              *
              */

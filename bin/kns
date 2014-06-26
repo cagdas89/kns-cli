@@ -29,14 +29,12 @@ program.version(pkg.version);
  * Creates test directory in app root if not exist and file with given name from
  * test template.
  */
-
 // TODO: cado
 
 /**
  * Creates model file with given name from
  * model template.
  */
-
 program
     .command("model [modelName]")
     .description("Creates model file")
@@ -75,7 +73,7 @@ program
             return foldercheck(path.join(pkgPath, "plugins"), "database");
         }).then(function (isExist) {
             if ( isExist ) {
-                return migration(path.join(pkgPath, "plugins/database/migrations"), migrationName);
+                return migration(path.join(pkgPath, "plugins/floppy/migrations"), migrationName);
             }
             else {
                 throw new Error("Database plugin can not be found. It must be created first.");
@@ -93,7 +91,6 @@ program
  * Creates plugin directory and file with given name from
  * migration template.
  */
-
 program
     .command("plugin [pluginName]")
     .description("Creates plugin directory and file")

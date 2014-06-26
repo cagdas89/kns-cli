@@ -13,6 +13,10 @@ internals.defaults = {};
 
 exports.register = function (plugin, options, next) {
 
+    /**
+     * Dependent plugin name, Hapi.js loads <%=dependency%> first, then
+     * loads <%= filename %>
+     */
     plugin.dependency("<%=dependency%>", after);
     next();
 };
@@ -22,7 +26,6 @@ var after = function (plugin, next) {
     /**
      * If options will be used.
      */
-
     //    options = Hoek.applyToDefaults(internals.defaults, options);
 
     /**
