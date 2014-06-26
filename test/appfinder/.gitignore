@@ -1,0 +1,6 @@
+# all files
+*
+# except index.js
+!index.js
+!.gitignore
+

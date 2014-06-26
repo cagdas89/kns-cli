@@ -20,6 +20,9 @@ var migration = require("../lib/migration");
 var plugin = require("../lib/plugin");
 var model = require("../lib/model");
 
+var test = require("../lib/test/test");
+var testRunner = require("../lib/test/test_runner");
+
 var appName;
 var pkgPath;
 
@@ -29,7 +32,33 @@ program.version(pkg.version);
  * Creates test directory in app root if not exist and file with given name from
  * test template.
  */
-// TODO: cado
+program
+    .command("test [testName]")
+    .description("Creates test file or run all tests")
+    .action(function(testName) {
+        if (!testName) {
+            testRunner.run();
+            return;
+        }
+        appfinder(path.resolve(process.cwd())).then(function (packagePath) {
+            pkgPath = packagePath;
+            appName = require(path.join(pkgPath, "package.json")).name;
+            return foldercheck(path.join(pkgPath, "test"), testName);
+        }).then(function (isExist) {
+            if (isExist) {
+                throw new Error("Test package " + testName + " exists. Test names must be unique.");
+            }
+            else {
+                return test(path.join(pkgPath, "test"), testName);
+            }
+        }).then(function () {
+            console.log("--------------------------------------------");
+            console.log("New test file " + clc.red.bold(testName) + " was added to " + clc.blue.bold(appName) + "\'s test folder.");
+            console.log("--------------------------------------------");
+        }).catch(function (e) {
+            printError(e.message);
+        });
+    });
 
 /**
  * Creates model file with given name from
